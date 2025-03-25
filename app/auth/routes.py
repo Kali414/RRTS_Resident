@@ -17,8 +17,7 @@ def signup():
         if(first_name and last_name and email and number and city and state and password and role):
 
             data={
-                "first_name":first_name,
-                "last_name":last_name,
+                "name": first_name+" "+last_name,
                 "email":email,
                 "number":number,
                 "city":city,
@@ -88,6 +87,6 @@ def login():
 @auth.route("/logout")
 def clear_session():
     session.clear()
-    return redirect(url_for("home"))
+    return redirect("https://rrts-login.onrender.com")
 
         

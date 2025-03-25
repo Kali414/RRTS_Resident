@@ -30,6 +30,8 @@ def report_issue():
 
     if issue_title and location and description and issue_type and severity_level and image:
         data = {
+            "resident_id":session["_id"],
+            "email":session["email"],
             "issue_title": issue_title,
             "location": location,
             "description": description,
