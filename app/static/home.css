@@ -1,0 +1,93 @@
+.container {
+    max-width: 75% !important;
+    margin: 0 auto;
+}
+
+:root {
+    --primary-color: #00203ff2;
+    --secondary-color: #e67e22;
+    --accent-color: #3498db;
+}
+
+.navbar-brand i {
+    color: var(--secondary-color);
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px rgba(45, 161, 176, 0.1);
+}
+
+.hero-section {
+    background: linear-gradient(#00203ff2, rgba(31, 58, 147, 0.9)),
+                url('https://images.unsplash.com/photo-1530085892894-8fff66c8e3b7?auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 0;
+    margin-top: -3rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom {
+    background-color: var(--secondary-color);
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.6);
+}
+
+.navbar-brand i {
+    color: #ffd700;
+}
+
+.card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature-icon {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    padding: 12px 30px;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(13, 110, 253, 0.3);
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    position: relative;
+    padding: 8px 15px !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ffd700;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}

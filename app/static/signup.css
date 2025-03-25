@@ -1,0 +1,32 @@
+.signup-container {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 32, 63, 0.95), rgba(31, 58, 147, 0.9)),
+                url('https://images.unsplash.com/photo-1530085892894-8fff66c8e3b7?auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+}
+.signup-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.btn-custom {
+    background-color: #00203ff2;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 30px;
+    transition: all 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #1f3a93;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.form-control {
+    border-radius: 25px;
+    padding: 12px 20px;
+}
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 32, 63, 0.25);
+}

@@ -1,0 +1,15 @@
+# Byte-compiled files
+__pycache__/
+/auth/__pycache__/
+*.py[cod]
+
+
+# Virtual environment
+.venv/
+.env
+
+# VS Code settings
+.vscode/
+
+
+bash.exe.stackdump

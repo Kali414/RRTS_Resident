@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RoadCare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container bg-dark">
+            <a class="navbar-brand d-flex align-items-center" href="{{url_for('home')}}">
+                <i class="fas fa-road text-primary fs-4 me-2"></i>
+                <span class="fw-bold">RoadCare</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{url_for('home')}}">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 " href="{{url_for('report_issue')}}">
+                            <i class="fas fa-exclamation-circle me-1"></i> Report Issue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 " href="{{url_for('track_repair')}}">
+                            <i class="fas fa-map-marked-alt me-1"></i> Track Repairs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 active" href="{{url_for('contact')}}">
+                            <i class="fas fa-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container py-5">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-md-4 mb-4">
+                <div class="card contact-info-card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4"><i class="fas fa-address-card me-2"></i> Contact Information</h3>
+                        <div class="contact-details">
+                            <div class="mb-4">
+                                <h5><i class="fas fa-map-marker-alt me-2"></i> Address</h5>
+                                <p>National Institute of Technology,<br>Sector 1, Rourkela, Odisha 769008</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="fas fa-phone me-2"></i> Phone</h5>
+                                <p>Emergency: (123) 456-7890<br>Support: (123) 456-7891</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="fas fa-envelope me-2"></i> Email</h5>
+                                <p>support@roadcare.com<br>info@roadcare.com</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="fas fa-clock me-2"></i> Working Hours</h5>
+                                <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                   Saturday: 9:00 AM - 1:00 PM<br>
+                                   Sunday: Closed</p>
+                            </div>
+                        </div>
+                        <div class="social-links mt-4">
+                            <a href="#" class="btn btn-outline-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn btn-outline-info me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="btn btn-outline-danger me-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="btn btn-outline-success"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-8 mb-4">
+                <div class="card contact-form-card">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4"><i class="fas fa-paper-plane me-2"></i> Send us a Message</h3>
+                        
+                        <!-- ✅ Added method="POST" and action="{{ url_for('contact') }}" -->
+                        <form method="POST" action="{{ url_for('contact') }}">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Map Section -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4"><i class="fas fa-map-marked-alt me-2"></i> Find Us</h3>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.429332695337!2d84.8983679!3d22.253051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a201f72bbd561c3%3A0xab5c70e76a7b5a!2sNational%20Institute%20of%20Technology%2C%20Rourkela!5e0!3m2!1sen!2sin!4v1700000000000" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

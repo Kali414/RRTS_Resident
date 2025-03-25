@@ -1,0 +1,134 @@
+/* Main Background */
+body {
+    background: linear-gradient(135deg, #00203f 0%, #1f3a93 50%, #3498db 100%);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-info-card i {
+    color: #00203ff2;
+}
+
+.contact-details h5 {
+    color: #00203ff2;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-details p {
+    color: #666;
+    margin-left: 2rem;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #e1e1e1;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 32, 63, 0.15);
+    border-color: #00203ff2;
+}
+
+.form-label {
+    color: #00203ff2;
+    font-weight: 500;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #00203ff2;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1f3a93;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 32, 63, 0.2);
+}
+
+/* Social Links */
+.social-links .btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-links .btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Map Container */
+.map-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.map-container iframe {
+    display: block;
+}
+
+/* Card Titles */
+.card-title {
+    color: #00203ff2;
+    font-weight: 600;
+    border-bottom: 2px solid #e1e1e1;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card-title i {
+    color: #00203ff2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .social-links {
+        text-align: center;
+    }
+    
+    .contact-details p {
+        margin-left: 1rem;
+    }
+}
+
+/* Animation for Form Submission */
+@keyframes submitPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-primary:active {
+    animation: submitPulse 0.3s ease;
+}
