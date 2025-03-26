@@ -14,7 +14,7 @@ def signup():
         state=request.form.get("state")
         password=request.form.get("password")
 
-        if(first_name and last_name and email and number and city and state and password and role):
+        if(first_name and last_name and email and number and city and state and password):
 
             data={
                 "name": first_name+" "+last_name,

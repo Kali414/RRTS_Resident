@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
+import os
 
-app=Flask(__name__)
-CORS(app)
+app = Flask(__name__)
 
-app.config['SECRET_KEY']='your_secret_key'
+CORS(app, supports_credentials=True)
+
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 from app import routes

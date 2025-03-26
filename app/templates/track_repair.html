@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='track_repair.css') }}">
 </head>
 <body>
-    <!-- Navbar with Logo -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container bg-dark">
             <a class="navbar-brand d-flex align-items-center" href="{{url_for('home')}}">
@@ -21,33 +20,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="{{url_for('home')}}">
-                            <i class="fas fa-home me-1"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3 " href="{{url_for('report_issue')}}">
-                            <i class="fas fa-exclamation-circle me-1"></i> Report Issue
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3 active" href="{{url_for('track_repair')}}">
-                            <i class="fas fa-map-marked-alt me-1"></i> Track Repairs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3" href="{{url_for('contact')}}">
-                            <i class="fas fa-envelope me-1"></i> Contact
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{url_for('home')}}"><i class="fas fa-home me-1"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{url_for('report_issue')}}"><i class="fas fa-exclamation-circle me-1"></i> Report Issue</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 active" href="{{url_for('track_repair')}}"><i class="fas fa-map-marked-alt me-1"></i> Track Repairs</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{url_for('contact')}}"><i class="fas fa-envelope me-1"></i> Contact</a></li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center me-3">
-                        <i class="fas fa-user-circle text-primary me-2 fs-5"></i>
-                        <span class="fw-medium text-light" >{{ session.name }}</span>
-                    </div>
-                    <a href="{{ url_for('auth.clear_session') }}" class="btn btn-outline-primary btn-sm text-light">
+                    <i class="fas fa-user-circle text-primary me-2 fs-5"></i>
+                    <span class="fw-medium text-light">{{ session.name }}</span>
+                    <a href="{{ url_for('auth.clear_session') }}" class="btn btn-outline-primary btn-sm text-light ms-3">
                         <i class="fas fa-sign-out-alt me-1 text-light"></i> Logout
                     </a>
                 </div>
@@ -57,8 +38,6 @@
 
     <div class="container py-5">
         <h2 class="text-center mb-4">Track Road Repairs</h2>
-        
-        <!-- Search and Filter Section -->
         <div class="row mb-4 justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow-sm">
@@ -68,14 +47,14 @@
                                 <input type="text" id="search-input" class="form-control" placeholder="Search by City">
                             </div>
                             <div class="col-md-3">
-                                <input type="text" id="user-id-filter" class="form-control" placeholder="Filter by User ID">
+                                <input type="text" id="user-id-filter" class="form-control" placeholder="Filter by Repair ID">
                             </div>
                             <div class="col-md-3">
                                 <select id="status-filter" class="form-select">
                                     <option value="">Filter by Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Pending">Pending</option>
                                 </select>
                             </div>
                             <div class="col-md-2 d-flex gap-2">
@@ -87,8 +66,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Repair Status List -->
         <div id="repair-list" class="mt-4"></div>
     </div>
 
@@ -98,36 +75,65 @@
             try {
                 const response = await fetch("{{ url_for('repairs') }}");
                 const repairs = await response.json();
-                displayRepairs(repairs);
+                filterRepairs(repairs);
             } catch (error) {
                 console.error("Error fetching repair data:", error);
             }
         }
-    
+        
+        function filterRepairs(repairs) {
+            const searchCity = document.getElementById("search-input").value.toLowerCase();
+            const repairId = document.getElementById("user-id-filter").value.toLowerCase();
+            const status = document.getElementById("status-filter").value;
+        
+            const filteredRepairs = repairs.filter(repair =>
+                (searchCity === "" || (repair.city && repair.city.toLowerCase().includes(searchCity))) &&
+                (repairId === "" || (repair._id && repair._id.toString().toLowerCase().includes(repairId))) &&
+                (status === "" || (repair.status && repair.status === status))
+            );
+        
+            displayRepairs(filteredRepairs);
+        }
+        
         function displayRepairs(repairs) {
             const list = document.getElementById("repair-list");
             list.innerHTML = repairs.length ? repairs.map(repair => `
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Repair ID: ${repair._id}</h5>
-                        <p><strong>City:</strong> ${repair.city || "N/A"}</p>
-                        <p><strong>User ID:</strong> ${repair.user_id || "N/A"}</p>
-                        <p><strong>Status:</strong> ${repair.status?.replace("_", " ").toUpperCase() || "N/A"}</p>
+                        <h5 class="card-title">Issue: ${repair.issue_title}</h5>
+                        <p><strong>Reported By:</strong> ${repair.email}</p>
+                        <p><strong>Location:</strong> ${repair.location}</p>
+                        <p><strong>Severity Level:</strong> <span class="badge bg-${getSeverityColor(repair.severity_level)}">${repair.severity_level}</span></p>
+                        <p><strong>Status:</strong> <span class="badge bg-${getStatusColor(repair.status)}">${repair.status}</span></p>
+                        ${repair.image ? `<img src="data:image/jpeg;base64,${repair.image}" class="img-fluid mt-2" style="max-height: 200px;">` : ""}
                     </div>
-                </div>`).join('') : '<p class="text-center text-muted">No repair tasks available.</p>';
+                </div>`).join('') : '<p class="text-center text-muted">No issues reported.</p>';
         }
-    
+        
+        function getStatusColor(status) {
+            return status === "Pending" ? "warning" :
+                   status === "In Progress" ? "primary" :
+                   status === "Completed" ? "success" : "secondary";
+        }
+        
+        function getSeverityColor(level) {
+            return level === "high" ? "danger" :
+                   level === "medium" ? "warning" :
+                   level === "low" ? "success" : "secondary";
+        }
+        
         document.getElementById("search-form").addEventListener("submit", function(event) {
             event.preventDefault();
             fetchRepairs();
         });
-    
+        
         document.getElementById("reset-btn").addEventListener("click", function() {
             document.getElementById("search-form").reset();
             fetchRepairs();
         });
-    
+        
         window.onload = fetchRepairs;
+        
     </script>
 </body>
 </html>

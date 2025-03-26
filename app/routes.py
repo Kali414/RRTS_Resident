@@ -65,21 +65,23 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/repairs")
+@app.route("/repairs", methods=["GET", "POST"])
 def repairs():
-
     if request.method == "GET":
-        query = list(issues.find().limit(5))
+        query = list(complaint.find({"resident_id": session.get('_id')}))
         return jsonify(query), 200
-
 
     city = request.form.get("city")
     user_id = request.form.get("user_id")
     status = request.form.get("status")
 
-    query = {"$or": [{"city": city}, {"user_id": user_id}, {"status": status}]}
-        
-    repair = list(issues.find(query))
-    print(repair)
+    query = {}
+    if city:
+        query["city"] = city
+    if user_id:
+        query["user_id"] = user_id
+    if status:
+        query["status"] = status
 
+    repair = list(complaint.find(query))
     return jsonify(repair), 200
