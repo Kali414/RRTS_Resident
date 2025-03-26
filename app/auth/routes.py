@@ -79,6 +79,9 @@ def login():
             session['_id']=user["_id"]
 
             return redirect(url_for("home"))
+        
+        else:
+            return redirect(url_for("auth.signup"))
 
     
     return render_template("login.html")
