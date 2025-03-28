@@ -1,4 +1,6 @@
 from flask import render_template,url_for,request,redirect,session,flash,jsonify
+from datetime import datetime,timedelta
+from bson import ObjectId
 
 from db import complaint, resident,issues
 
@@ -18,6 +20,7 @@ def report_issue():
     if request.method == "GET" :
         return render_template("report_issue.html")
 
+
     issue_title = request.form.get("title")
     state=request.form.get("state")
     city=request.form.get("city")
@@ -28,19 +31,26 @@ def report_issue():
     image = request.files.get("images")
     status="Pending"
 
+
     if issue_title and location and description and issue_type and severity_level and image:
         data = {
             "resident_id":session["_id"],
             "email":session["email"],
-            "issue_title": issue_title,
+            "title": issue_title,
             "location": location,
             "description": description,
-            "issue_type": issue_type,
+            "issueType": issue_type,
             "state":state,
             "city":city,
-            "severity_level": severity_level,
+            "issueDate":datetime.now(),
+            "completionDate":datetime.now()+timedelta(days=7),
+            "severity": severity_level,
             "image":image.read(),
-            "status":status
+            "status":status,
+            "manpower":"",
+            "resources":"",
+            "machines":""
+
 
         }
         complaint.insert_one(data)
@@ -65,23 +75,26 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/repairs", methods=["GET", "POST"])
-def repairs():
-    if request.method == "GET":
-        query = list(complaint.find({"resident_id": session.get('_id')}))
-        return jsonify(query), 200
+from flask import jsonify
+from bson import ObjectId
+@app.route("/get_repairs", methods=["GET"])
+def get_repairs():
+    if not session.get("name"):
+        return redirect(url_for("auth.login"))
 
-    city = request.form.get("city")
-    user_id = request.form.get("user_id")
-    status = request.form.get("status")
+    repairs_cursor = complaint.find({"email": session["email"]})  # Get cursor from MongoDB
+    repair_data = [
+        {
+            "resident_id": str(repair.get("resident_id", "")),  
+            "title": repair.get("title", ""),
+            "issueDate": repair.get("issueDate").isoformat() if repair.get("issueDate") else None,
+            "completionDate": repair.get("completionDate").isoformat() if repair.get("completionDate") else None,
+            "status": repair.get("status", "Pending"),
+            "severity": repair.get("severity", ""),
+            "issueType": repair.get("issueType", ""),
+            "location": repair.get("location", "")
+        }
+        for repair in repairs_cursor  # Iterate over cursor
+    ]
 
-    query = {}
-    if city:
-        query["city"] = city
-    if user_id:
-        query["user_id"] = user_id
-    if status:
-        query["status"] = status
-
-    repair = list(complaint.find(query))
-    return jsonify(repair), 200
+    return jsonify(repair_data), 200  # Return JSON response
