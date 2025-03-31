@@ -25,7 +25,7 @@ def signup():
                 "password":password,
                 "role":"Resident"
             }
-            user = resident.find_one({"email": email, "password": password})
+            user = resident.find_one({"email": email})
             if user:
                 return redirect(url_for("auth.login"))
             # Attempt to find the document with the highest _id
@@ -68,8 +68,9 @@ def login():
         role="Resident"
             
         user = resident.find_one({"email": email, "password": password})
+        user_email = resident.find_one({"email": email})
         
-        if user["email"] is not None:
+        if user_email:
             session["name"] = user["name"]
             session["role"]=user["role"]
             session["email"]=user["email"]
