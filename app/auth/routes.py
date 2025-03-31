@@ -70,7 +70,7 @@ def login():
         user = resident.find_one({"email": email, "password": password})
         
         if user:
-            session["name"] = user["name"]
+            session["name"] = user["first_name"]+" "+user["last_name"]
             session["role"]=user["role"]
             session["email"]=user["email"]
             session["number"]=user["number"]
