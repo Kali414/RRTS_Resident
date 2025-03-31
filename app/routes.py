@@ -48,7 +48,7 @@ def report_issue():
             "image":image.read(),
             "status":status,
             "manpower":"",
-            "resources":"",
+            "resources":{},
             "machines":""
 
 
