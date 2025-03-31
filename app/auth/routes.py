@@ -69,7 +69,7 @@ def login():
             
         user = resident.find_one({"email": email, "password": password})
         
-        if user:
+        if user["email"] is not None:
             session["name"] = user["name"]
             session["role"]=user["role"]
             session["email"]=user["email"]
