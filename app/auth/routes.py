@@ -17,9 +17,10 @@ def signup():
         if(first_name and last_name and email and number and city and state and password):
 
             data={
-                "name": first_name+" "+last_name,
+                "firstName": first_name,
+                "lastName": last_name,
                 "email":email,
-                "number":number,
+                "phoneNumber":number,
                 "city":city,
                 "state":state,
                 "password":password,
@@ -46,7 +47,7 @@ def signup():
 
             # Insert the new document into the collection
             resident.insert_one(data)
-            session["name"]=first_name+" "+last_name
+            session["name"]=first_name
             session["role"]="Resident"
             session["email"]=email
             session["number"]=number
@@ -71,7 +72,7 @@ def login():
         user_email = resident.find_one({"email": email})
         
         if user_email:
-            session["name"] = user["name"]
+            session["name"] = user["firstName"]
             session["role"]=user["role"]
             session["email"]=user["email"]
             session["number"]=user["number"]
