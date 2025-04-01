@@ -24,7 +24,7 @@ def signup():
                 "city":city,
                 "state":state,
                 "password":password,
-                "role":"Resident"
+                "role":"resident"
             }
             user = resident.find_one({"email": email})
             if user:
@@ -48,7 +48,7 @@ def signup():
             # Insert the new document into the collection
             resident.insert_one(data)
             session["name"]=first_name
-            session["role"]="Resident"
+            session["role"]="resident"
             session["email"]=email
             session["number"]=number
             session["city"]=city
