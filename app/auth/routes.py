@@ -75,7 +75,7 @@ def login():
             session["name"] = user["firstName"]
             session["role"]=user["role"]
             session["email"]=user["email"]
-            session["number"]=user["number"]
+            session["number"]=user["phoneNumber"]
             session["city"]=user["city"]
             session["state"]=user["state"]
             session['_id']=user["_id"]

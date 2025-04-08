@@ -47,9 +47,9 @@ def report_issue():
             "severity": severity_level,
             "image":image.read(),
             "status":status,
-            "manpower":"",
+            "manpower":0,
             "resources":{},
-            "machines":""
+            "machines":0
 
 
         }
